@@ -1,0 +1,40 @@
+const execSync = require('child_process').execSync;
+
+const arg = process.argv;
+
+let versionStr = '0.0.0';
+arg.some(key => {
+    if (key.includes('ui-version=')) {
+        versionStr = key.replace('ui-version=', '').replace(/[^0-9.]+/, '');
+        return true;
+    }
+    return false;
+});
+
+const getNWCmdWin = `"./dev/nw-dev-cb.sh" 1 win prod`;
+const getNWCmdWinSdk = `"./dev/nw-dev-cb.sh" 1 win sdk`;
+execSync(getNWCmdWin, {stdio: 'inherit'});
+execSync(getNWCmdWinSdk, {stdio: 'inherit'});
+
+try {
+    const cmdString = 'set GENERATE_SOURCEMAP=false & set NODE_OPTIONS=--openssl-legacy-provider && ' +
+        'react-scripts build && ' +
+        `node "./build_config/sdk-build.js" ${versionStr} && ` +
+        'build --tasks win-x64 --mirror https://dl.nwjs.io/ "./build/" && ' +
+        `node "./build_config/prod-build.js" ${versionStr} && ` +
+        'build --tasks win-x64 --mirror https://dl.nwjs.io/ "./build/" && ' +
+        'node "./dev/nw-build-cb"';
+    execSync(cmdString, {stdio: 'inherit'});
+} catch (e) {
+    console.log(e);
+    console.log('\ncannot run npm script. npm script is not recognized as an internal or external command. \nretry with full path.');
+
+    const cmdString = 'set GENERATE_SOURCEMAP=false && ' +
+        'node ./node_modules/.bin/react-scripts && ' +
+        `node ./build_config/prod-build.js ${versionStr} && ` +
+        'node ./node_modules/.bin/build --tasks win-x64 --mirror https://dl.nwjs.io/ ./build/ && ' +
+        `node ./build_config/sdk-build.js ${versionStr} && ` +
+        'node ./node_modules/.bin/build --tasks win-x64 --mirror https://dl.nwjs.io/ ./build/ && ' +
+        'node ./dev/nw-build-cb';
+    execSync(cmdString, {stdio: 'inherit'});
+}

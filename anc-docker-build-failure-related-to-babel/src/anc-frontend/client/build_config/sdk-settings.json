@@ -1,0 +1,30 @@
+{
+    "name": "Generic Node Manager",
+    "version": "0.1.0",
+    "main": "index.html",
+    "chromium-args": "--mixed-context",
+    "nodejs": "true",
+    "build": {
+        "win": {
+            "icon": "./favicon.ico",
+            "productName": "Generic Node Manager",
+            "companyName": "YOUR_COMPANY_NAME",
+            "fileDescription": "Generic Node Manager",
+            "copyright": "YOUR_COMPANY_NAME All Rights Reserved"
+        },
+        "nwVersion": "0.71.0",
+        "nwFlavor": "sdk",
+        "outputPattern": "gnm-${PLATFORM}-${ARCH}-sdk"
+    },
+    "homepage": "./",
+    "private": true,
+    "node-remote": "http://localhost:3000",
+    "window": {
+        "title": "",
+        "icon": "./favicon.png",
+        "width": 1800,
+        "height": 900,
+        "min_width": 1280,
+        "min_height": 800
+    }
+}

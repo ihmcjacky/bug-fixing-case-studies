@@ -1,0 +1,26 @@
+.tabIndicator{
+    top: 0;
+    height: 3px;
+    font-size: 14px;
+}
+
+.tabButton{
+    background: #e5e5e5;
+}
+
+.tabButton button{
+    border-bottom: 1px solid #bebebe;
+    max-width: 195px;
+    height: 41px;
+}
+
+.tabButton button:hover{
+    color: #122d54;
+}
+
+.tabButton button[aria-selected="true"]{
+    border: 1px solid #bebebe;
+    border-top: 0;
+    border-bottom: 0;
+    font-weight: bold;
+}

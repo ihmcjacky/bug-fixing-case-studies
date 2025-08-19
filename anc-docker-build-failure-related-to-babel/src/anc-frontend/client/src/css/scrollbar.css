@@ -1,0 +1,31 @@
+/**
+ * @Author: mango
+ * @Date:   2018-04-04T19:31:25+08:00
+ * @Last modified by:   mango
+ * @Last modified time: 2018-08-16T14:00:52+08:00
+ */
+ ::-webkit-scrollbar {
+	width: 5px;
+  background-color: #FAFAFA;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(0,0,0,0.1);
+  /* border: 1px solid #ccc; */
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #4D4D4D;
+  border: 1px solid #aaa;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4D4D4D;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(to left, #22ADD4, #1E98BA);
+}

@@ -1,0 +1,37 @@
+/**
+ * @Author: mango
+ * @Date:   2018-04-23T16:54:32+08:00
+ * @Last modified by:   mango
+ * @Last modified time: 2018-04-23T17:52:59+08:00
+ */
+.fileUploadContainer {
+    position: relative;
+    width: 100%;
+}
+
+.fileUploadInput {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    text-align: right;
+    opacity: 0;
+    display: block;
+    cursor: pointer;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+
+.fileUploadInputFake {
+    width: 100%;
+    height: 100%;
+    color: #122d54 !important;
+}
+
+.fileUploadInputFake:disabled{
+    color: rgba(0, 0, 0, 0.54) !important;
+}
+
+.fileUploadInput:disabled{
+    cursor: not-allowed;
+}

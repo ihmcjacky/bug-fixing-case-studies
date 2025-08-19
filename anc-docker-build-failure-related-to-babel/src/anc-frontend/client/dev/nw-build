@@ -1,0 +1,38 @@
+const execSync = require('child_process').execSync;
+// oem prod-settings being copied in pipeline or original prod-settings
+const oemProdSettingsJson = require('../build_config/prod-settings.json');
+const arg = process.argv;
+
+let versionStr = '0.0.0';
+let oemStr = null;
+
+console.log(arg)
+arg.forEach((val) => {
+    console.log(`val in arg.forEach ${val}`)
+    if (val.includes('ui-version=')) {
+        versionStr = val.replace('ui-version=', '').replace(/[^0-9.]+/, '');
+    }
+
+    if (val.includes('oem=')) {
+        oemStr = oemProdSettingsJson.build.win.productName;
+        console.log(`val in nw-build: ${oemStr}`)
+    } else {
+        oemStr = "None";
+    }
+});
+
+const getNWCmdWin = `./dev/nw-dev-cb.sh 1 win prod`;
+const getNWCmdLinux = `./dev/nw-dev-cb.sh 1 linux prod`;
+
+execSync(getNWCmdWin, {stdio: 'inherit'});
+execSync(getNWCmdLinux, {stdio: 'inherit'});
+
+const buildCmd = 'GENERATE_SOURCEMAP=false CI=false react-app-rewired --openssl-legacy-provider build && ' +
+    `node ./build_config/prod-build.js ${versionStr} && ` +
+    'build --tasks win-x64 --mirror https://dl.nwjs.io/ ./build/ && ' +
+    `node ./build_config/sdk-build.js ${versionStr} && ` +
+    'build --tasks win-x64,linux-x64 --mirror https://dl.nwjs.io/ ./build/ && ' +
+    `node ./dev/nw-build-cb "${oemStr}"`;
+
+execSync(buildCmd, { stdio: 'inherit' });
+

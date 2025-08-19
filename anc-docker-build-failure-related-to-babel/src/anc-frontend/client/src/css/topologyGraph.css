@@ -1,0 +1,135 @@
+.link-label {
+    text-anchor: middle;
+    font-weight: 500;
+    color: black;
+    font-size: 10px;
+    font-family: roboto;
+    pointer-events: none;
+}
+
+.link-label-shadow {
+    text-anchor: middle;
+    font-weight: 500;
+    font-size: 10px;
+    font-family: roboto;
+    pointer-events: none;
+    opacity: 0.85;
+    stroke: white;
+    stroke-linejoin: round;
+    stroke-width: 4px;
+}
+
+.node-label {
+    font-size:  11px;
+    font-family: roboto;
+    font-weight: 500;
+    color: #343434;
+    /* box-shadow: 3px 3px 3px #ccc; */
+    pointer-events: none;
+}
+
+.node-label-shadow {
+    font-size:  11px;
+    font-family: roboto;
+    font-weight: 500;
+    color: #343434;
+    /* box-shadow: 3px 3px 3px #ccc; */
+    pointer-events: none;
+    stroke: white;
+    opacity: 0.85;
+    stroke-linejoin: round;
+    stroke-width: 4px;
+}
+
+.mdop-label-text-0 {
+    color: #ffffff;
+    font-weight: 500;
+    /* font-size: 7px; */
+}
+
+.mdop-label-text-1 {
+    color: #ffffff;
+    font-weight: 500;
+    /* font-size: 7px; */
+}
+
+.mdop-rect-hover-area {
+
+}
+
+.menu-button-tooltip-wrapper {
+    background-color: #525252;
+    color: white;
+    stroke: #525252;
+    stroke-width: 2px;
+    border-radius: 5px;
+}
+
+.menu-button-content {
+    margin: 4px 8px;
+    font-family: roboto;
+    font-size: 12px;
+}
+
+@keyframes blink {
+    0% {
+        fill: #8994a9;
+    }
+    25% {
+        fill: #000000;
+    }
+    50% {
+        fill: #8994a9;
+    }
+    75% {
+        fill: #000000;
+    }
+    100% {
+        fill: #8994a9;
+    }
+}
+
+@keyframes blink-stroke {
+    0% {
+        stroke: #8994a9;
+    }
+    25% {
+        stroke: #FFFFFF;
+    }
+    50% {
+        stroke: #8994a9;
+    }
+    75% {
+        stroke: #FFFFFF;
+    }
+    100% {
+        stroke: #8994a9;
+    }
+}
+  
+.loading-spinner {
+animation: loading-spinner 1s linear infinite; }
+
+@keyframes loading-spinner {
+from {
+    transform: rotate(0deg); }
+to {
+    transform: rotate(360deg); } }
+  
+/* .progress {
+    transform: rotate(-90deg);
+} */
+
+.progress__meter,
+.progress__value {
+    fill: none;
+}
+
+.progress__meter {
+    stroke: grey;
+}
+
+.progress__value {
+    stroke: #122d54;
+/*     stroke-linecap: round; */
+}

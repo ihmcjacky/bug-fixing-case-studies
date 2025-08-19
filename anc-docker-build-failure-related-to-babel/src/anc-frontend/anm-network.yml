@@ -1,0 +1,8 @@
+version: '3.5'
+networks:
+  ui_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.240.0.0/16
+          gateway: 10.240.0.1

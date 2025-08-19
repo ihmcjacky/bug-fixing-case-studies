@@ -1,0 +1,17 @@
+version: '3.5'
+services:
+  web_ui:
+      image: ${PRIVATE_REGISTRY}/your-frontend/prod:${VERSION}
+      container_name: web-ui
+      environment:
+        - NODE_ENV=production
+        - PORT=${PORT}
+      build:
+        args:
+          REACT_APP_FRONTEND_HOSTNAME: ${REACT_APP_FRONTEND_HOSTNAME}
+          REACT_APP_FRONTEND_PORT: ${REACT_APP_FRONTEND_PORT}
+        context: .
+        dockerfile: wProd.Dockerfile
+        target: prod_serve
+      network_mode: host
+      command: ["serve", "-c", "serve.json", "--no-clipboard"]

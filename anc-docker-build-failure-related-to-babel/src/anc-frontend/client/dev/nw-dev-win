@@ -1,0 +1,49 @@
+const execSync = require('child_process').execSync;
+
+const arg = process.argv;
+
+// Controller (Django) hostname / IP
+let hostname = 'localhost';
+// Frontend (NW) IP, default, follow controller hostname / IP
+let ui_hostname = 'localhost';
+// Controller (Django) port 
+let port = 8000;
+let dlnw = "0";
+let os = "win";
+let type = "sdk";
+
+console.log(arg)
+arg.forEach((key) => {
+    if (/^hostname=/.test(key)) {
+        hostname = key.replace('hostname=', '');
+    }
+    if (key.includes('port')) {
+        port = key.replace('port=', '');
+    }
+    if (key.includes('dlnw')) {
+        dlnw = key.replace('dlnw=', '');
+    }
+    if (key.includes('os')) {
+        os = key.replace('os=', '');
+    }
+    if (key.includes('type')) {
+        type = key.replace('type=', '');
+    }
+    if (key.includes('ui_hostname')) {
+        ui_hostname = key.replace('ui_hostname=', '');
+    }
+});
+
+try {
+    if (hostname === ui_hostname) {
+        // user hosts ui and controller at the same machine
+        execSync(`"./dev/nw-dev-cb.sh" ${dlnw} ${os} ${type} && set NWJS_START_URL=http://${hostname}:3000 && run . hostname=${hostname} port=${port}`, { stdio: 'inherit' });
+    } else {
+        // user hosts ui and controller in different machine
+        execSync(`"./dev/nw-dev-cb.sh" ${dlnw} ${os} ${type} && set NWJS_START_URL=http://${ui_hostname}:3000 && run . hostname=${hostname} port=${port}`, { stdio: 'inherit' });
+    }
+} catch (e) {
+    console.log(e);
+    console.log('\ncannot run npm script. npm script is not recognized as an internal or external command. \nretry with full path.');
+    execSync(`"./dev/nw-dev-cb.sh" ${dlnw} ${os} ${type} && set NWJS_START_URL=http://${hostname}:3000 && node ./node_modules/.bin/run . hostname=${hostname} port=${port}`, {stdio: 'inherit'});
+}

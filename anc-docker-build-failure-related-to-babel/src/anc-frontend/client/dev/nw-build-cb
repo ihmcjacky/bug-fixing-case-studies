@@ -1,0 +1,93 @@
+const fs = require('fs')
+const arg = process.argv;
+const cwd = process.cwd();
+const oemStr = arg[2];
+
+console.log(`oemStr (arg): ${oemStr}`)
+// rename windows prod build
+let exeNameToRename = oemStr != 'None' ? oemStr : 'Anywhere Node Manager';
+try {
+    console.log(`oemStr in nw-build-cb: ${oemStr}`)
+    console.log(`exeNameToRename in nw-build-cb: ${exeNameToRename}`)
+
+    if (fs.existsSync(`${cwd}/build/dist/anm-win-x64`)) {
+        fs.renameSync(`${cwd}/build/dist/anm-win-x64/${exeNameToRename}.exe`, `${cwd}/build/dist/anm-win-x64/client.exe`);
+
+        if (fs.existsSync(`${cwd}/../README.md`)) {
+            // local build
+            fs.copyFileSync(`${cwd}/../README.md`, `${cwd}/build/dist/anm-win-x64/README.md`);
+        } else if (fs.existsSync(`${cwd}/README.md`)) {
+            // pipeline build
+            fs.copyFileSync(`${cwd}/README.md`, `${cwd}/build/dist/anm-win-x64/README.md`);
+        }
+    }
+} catch(err) {
+    console.error('anm-win-x64 no exist', err);
+    // If there's an error, try to list all files in the directory
+    try {
+        console.log(`Path of cwd: ${cwd}`)
+        const dirPath = `${cwd}/build/dist/anm-win-x64`;
+        const files = fs.readdirSync(dirPath);
+        console.log(`Files in ${dirPath}:`);
+        files.forEach(file => {
+            console.log(file);
+        });
+    } catch (listErr) {
+        console.error(`Failed to list files in ${dirPath}`, listErr);
+    }
+}
+
+// rename windows sdk build
+try {
+    if (fs.existsSync(`${cwd}/build/dist/anm-win-x64-sdk`)) {
+        fs.renameSync(`${cwd}/build/dist/anm-win-x64-sdk/${exeNameToRename}.exe`, `${cwd}/build/dist/anm-win-x64-sdk/client.exe`);
+
+        if (fs.existsSync(`${cwd}/../README.md`)) {
+            fs.copyFileSync(`${cwd}/../README.md`, `${cwd}/build/dist/anm-win-x64-sdk/README.md`);
+        } else if (fs.existsSync(`${cwd}/README.md`)) {
+            fs.copyFileSync(`${cwd}/README.md`, `${cwd}/build/dist/anm-win-x64-sdk/README.md`);
+        }
+    }
+} catch(err) {
+    console.log('anm-win-x64-sdk not exist', err);
+    // If there's an error, try to list all files in the directory
+    try {
+        console.log(`Path of cwd: ${cwd}`)
+        const dirPath = `${cwd}/build/dist/anm-win-x64-sdk`;
+        const files = fs.readdirSync(dirPath);
+        console.log(`Files in ${dirPath}:`);
+        files.forEach(file => {
+            console.log(file);
+        });
+    } catch (listErr) {
+        console.error(`Failed to list files in ${dirPath}`, listErr);
+    }
+}
+
+//rename linux sdk build
+try {
+    if (fs.existsSync(`${cwd}/build/dist/anm-linux-x64-sdk`)) {
+        fs.renameSync(`${cwd}/build/dist/anm-linux-x64-sdk/${exeNameToRename}`, `${cwd}/build/dist/anm-linux-x64-sdk/client`);
+
+        if (fs.existsSync(`${cwd}/../README.md`)) {
+            fs.copyFileSync(`${cwd}/../README.md`, `${cwd}/build/dist/anm-linux-x64-sdk/README.md`);
+        } else if (fs.existsSync(`${cwd}/README.md`)) {
+            fs.copyFileSync(`${cwd}/README.md`, `${cwd}/build/dist/anm-linux-x64-sdk/README.md`);
+        }
+    }
+} catch(err) {
+    console.log('anm-linux-x64-sdk not exist', err);
+
+    // If there's an error, try to list all files in the directory
+    try {
+        console.log(`Path of cwd: ${cwd}`)
+        const dirPath = `${cwd}/build/dist/anm-linux-x64-sdk`;
+        const files = fs.readdirSync(dirPath);
+        console.log(`Files in ${dirPath}:`);
+        files.forEach(file => {
+            console.log(file);
+        });
+    } catch (listErr) {
+        console.error(`Failed to list files in ${dirPath}`, listErr);
+    }
+}

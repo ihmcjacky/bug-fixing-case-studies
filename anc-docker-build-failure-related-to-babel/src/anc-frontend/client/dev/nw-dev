@@ -1,0 +1,61 @@
+/**
+ * Intention of this script is to provide a way for inputting default
+ * arguments when command is not specified
+ */
+const execSync = require('child_process').execSync;
+const fs = require('fs');
+const path = require('path');
+const arg = process.argv;
+
+// Include default arguments
+// Controller (Django) hostname / IP
+let hostname = 'localhost';
+// Frontend (NW) IP, default, follow controller hostname / IP
+let ui_hostname = 'localhost';
+let port = 8000;
+let dlnw = "0";
+let os = "linux";
+let type = "sdk";
+
+arg.forEach((key) => {
+    if (/^hostname=/.test(key)) {
+        hostname = key.replace('hostname=', '');
+    }
+    if (key.includes('port')) {
+        port = key.replace('port=', '');
+    }
+    if (key.includes('dlnw')) {
+        dlnw = key.replace('dlnw=', '');
+    } else {
+        // check existance of module path
+        const pathToCheck = path.join(__dirname, '../', 'node_modules', 'nwjs-builder-phoenix', 'caches')
+        if (!fs.existsSync(pathToCheck)) {
+            dlnw = 1;
+        }
+    }
+    if (key.includes('os')) {
+        os = key.replace('os=', '');
+    }
+    if (key.includes('type')) {
+        type = key.replace('type=', '');
+    }
+    if (key.includes('ui_hostname')) {
+        ui_hostname = key.replace('ui_hostname=', '');
+    }
+});
+if (hostname === ui_hostname) {
+    // user hosts ui and controller at the same machine
+    // Run command from nwjs phoneix https://github.com/evshiron/nwjs-builder-phoenix#getting-started
+    execSync(
+        `./dev/nw-dev-cb.sh ${dlnw} ${os} ${type}`,
+        { stdio: 'inherit' }
+    );
+
+    execSync(
+        `NWJS_START_URL=http://${hostname}:3000 DEBUG=build:util run . hostname=${hostname} port=${port}`,
+        { stdio: 'inherit' }
+    );
+} else {
+    // user hosts ui and controller in different machine
+    execSync(`"./dev/nw-dev-cb.sh" ${dlnw} ${os} ${type} && NWJS_START_URL=http://${ui_hostname}:3000 run . hostname=${hostname} port=${port}`, { stdio: 'inherit' });
+}

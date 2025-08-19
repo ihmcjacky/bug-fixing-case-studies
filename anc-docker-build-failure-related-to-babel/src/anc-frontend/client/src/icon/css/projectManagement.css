@@ -1,0 +1,53 @@
+.errorText {
+  background: #000000;
+  /* bottom: 100%; */
+  color: #ffffff;
+  display: block;
+  /* left: -25px; */
+  /* margin-bottom: 15px; */
+  /* opacity: 0; */
+  /* padding: 20px; */
+  /* pointer-events: none; */
+  position: absolute;
+  /* width: 100%; */
+  border-radius: 5px;
+  padding: 10px;
+  transform: translate(10px, 20px);
+  /* transition: all .1s ease-out; */
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.28);
+
+}
+/* This bridges the gap so you can mouse into the errorText without it disappearing */
+.errorText:before {
+  bottom: -20px;
+  content: " ";
+  display: block;
+  height: 20px;
+  left: 20;
+  position: absolute;
+  width: 100%;
+}
+
+/* CSS Triangles - see Trevor's post */
+.errorText:after {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-bottom: solid #000000 10px;
+  top: -10px;
+  content: " ";
+  height: 0;
+  left: 100px;
+  margin-left: -40px;
+  position: absolute;
+  width: 0;
+}
+
+.wrapper:hover .errorText {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: translateY(0px);
+     -moz-transform: translateY(0px);
+      -ms-transform: translateY(0px);
+       -o-transform: translateY(0px);
+          transform: translateY(0px);
+}

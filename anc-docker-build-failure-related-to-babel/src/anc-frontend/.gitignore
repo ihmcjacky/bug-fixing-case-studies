@@ -1,0 +1,11 @@
+# Ignore development-only compose and Dockerfile in this folder
+# Keep production files tracked for documentation
+
+# Ignore (dev)
+wDev.Dockerfile
+docker-compose.yml
+
+# Keep (prod)
+!wProd.Dockerfile
+!docker-compose-prod.yml
+

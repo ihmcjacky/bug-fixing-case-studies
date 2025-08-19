@@ -1,0 +1,6 @@
+const execSync = require('child_process').execSync;
+const path = require('path');
+const es_dest = path.join(__dirname, '..', 'node_modules', 'material-ui-nested-menu-item', 'dist-web');
+
+console.log(es_dest)
+execSync(`npx babel ${es_dest}/index.js --out-file ${es_dest}/index.js.test`)
