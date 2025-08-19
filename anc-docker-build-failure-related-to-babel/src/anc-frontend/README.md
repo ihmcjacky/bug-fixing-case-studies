@@ -1,8 +1,7 @@
 # Anywhere Node Controller (ANC)
 Web version of ANM (aka ANC), which removes native Windows dependencies and allow user to reach the applications through web access.
 
-- @author: Jacky LAM <jackylam@anywherenetworks.com>
-- @author: Kenny FUNG <kennyfung@anywherenetworks.com>
+- @author: Jacky LAM <ihmcjacky@gmail.com>
 
 
 ## 1.1 Setup prerequisite environment
@@ -21,7 +20,7 @@ The following packages are required
 Skip this section and go to section 1.1.3 if you are not developing the anc-frontend project
 
 1. Install all packages mentioned in [section 1.1](#11-setup-prerequisite-environment)
-2. Clone the anc-frontend project using `git clone -b master-v2.0-web https://repo.gitlab.dev.hkg.internal.p2mt.com/p2-ui/anc-frontend.git`
+2. Clone the frontend project using your repository URL (example): `git clone https://github.com/YOUR_ORG/YOUR_REPO.git`
 3. Navigate to `<project_root>/client`
 4. Run `npm install`
 5. Run `npm run start`

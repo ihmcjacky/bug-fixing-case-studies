@@ -185,9 +185,10 @@ pnpm-lock.yaml
 
 # Docker
 .dockerignore
+
 Dockerfile*
 docker-compose*.yml
-
+wDev.Dockerfile
 !docker-compose-prod.yml
 !wProd.Dockerfile
 
