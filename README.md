@@ -3,7 +3,7 @@
 ## Overview and Background
 This repository contains a collection of real-world bug fixing case studies during my career, this repository aims to documenting various technical issues encountered in different scenarios during my role as a software engineer, system analyst, DevOps engineer etc. The purpose is to provide a detailed analysis of the problem, the steps taken to resolve it, and the lessons learned from the experience.
 
-During my career, I have encountered tons of bugs and issues in different projects and environments. There are sophisticated and complex issues, and there are also simple and straightforward issues but yet tricky to resolve. These case studies aim to capture the essence of those experiences, providing insights into the problem-solving process.
+During my career, I have encountered tons of bugs and issues in different projects and environments. There are sophisticated and complex issues, and there are also simple, dumb and straightforward issues but yet tricky to resolve. Learning from mistakes and successes is an interesting journey, and these case studies aim to capture the essence of those experiences, providing insights into the problem-solving process.
 
 ## Case Studies
 
