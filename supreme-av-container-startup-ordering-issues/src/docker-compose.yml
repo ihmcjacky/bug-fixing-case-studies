@@ -1,0 +1,68 @@
+version: '2.1'
+services:
+    frontend:
+        image: supremeav-ng
+        container_name: supremeav-front
+        build: 
+            context: ./frontend/
+            args:
+                NODE_ENV: ${NODE_ENV}
+                FILE_SERV_PATH: ${FILE_SERV_PATH}
+                NG_PORT: ${NG_PORT}
+        volumes:
+            - ./frontend:/usr/src/app
+            - /usr/src/app/bower_components  # Anonymous volume to preserve dependencies
+        ports:
+            - "${NG_PORT}:${NG_PORT}"
+    mongodb:
+        image: mongo:4.4.2
+        container_name: supremeav-db
+        ports:
+            - "${DB_PORT_HOST}:${DB_PORT_CONTAINER}"
+        expose:
+            - ${DB_PORT_HOST}
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: mongoadmin999555999
+            MONGO_INITDB_DATABASE: supremeav-db
+        volumes:
+            - ./dbdata:/data/db
+        healthcheck:
+            test: ["CMD", "mongo", "--quiet", "--eval", "db.runCommand('ping').ok"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 30s
+    supremeav-server:
+        image: supremeav
+        container_name: supremeav-server
+        build:
+            context: ./backend/
+            args:
+                NODE_ENV: ${NODE_ENV}
+        volumes:
+            - ./backend:/usr/src/app
+            - /usr/src/app/node_modules
+            - ./debug:/var/log
+        depends_on:
+            mongodb:
+                condition: service_healthy
+            mongo-express:
+                condition: service_started
+        ports:
+            - "${BACKEND_PORT}:${BACKEND_PORT}"
+    mongo-express:
+        image: mongo-express
+        container_name: supremeav-db-mgmt-server
+        restart: "always"
+        depends_on:
+            mongodb:
+                condition: service_healthy
+        ports:
+            - "${MONGO_EXPRESS_PORT}:${MONGO_EXPRESS_PORT}"
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: root
+            ME_CONFIG_MONGODB_ADMINPASSWORD: mongoadmin999555999
+            ME_CONFIG_BASICAUTH_USERNAME: ${USER}
+            ME_CONFIG_BASICAUTH_PASSWORD: maxwell9559
+            ME_CONFIG_MONGODB_SERVER: mongodb
