@@ -19,5 +19,11 @@ Container initialization ordering is important, we can learn from this case stud
 For more information please refer to 
 - [Supreme AV Container Startup Ordering Issues](supreme-av-container-startup-ordering-issues/README.md)
 
+### Case 3. Environment Variable Substitution Issue in .env File
+Trailing space in the .env file can cause unexpected behavior, we can learn from this case study how to avoid such issue.
+
+For more information please refer to 
+- [Environment Variable Substitution Issue in .env File](env-file-empty-space-bug-issue/README.md)
+
 ## Special Note
 For the sake of privacy and security, all sensitive information has been sanitized and removed from the case studies. Generic placeholders are used where necessary to maintain the educational value while protecting sensitive information. Source code samples are also simplified and sanitized to remove any proprietary or confidential details. 
