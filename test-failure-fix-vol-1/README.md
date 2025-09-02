@@ -121,3 +121,13 @@ it('should remove current project session data when login project success', asyn
 ```
 
 The new test fix actually created a custom dispatch function that will actually call the `setProjectInfo` action when it's dispatched. This is to simulate the actual behavior of the `setProjectInfo` action in the component. And hence the test case is passing now. Finally the args passed in the `setProjectInfo` action is also verified to be correct.
+
+## Lessons Learned
+
+1. When mocking a function that will dispatch an action, make sure to actually call the action when it's dispatched, instead of just returning a promise.
+
+2. When testing a function that will dispatch an action, make sure to test the actual behavior of the action, instead of just testing whether the action is dispatched.
+
+3. Testing React hooks can be tricky, especially when it involves testing the behavior of the hook. It is recommended to use a testing library that can handle the testing of hooks, such as React Testing Library.
+
+4. To test a the number of times a function is called, we have to very familiar with how React manipulates the components, sometimes there are function calls that are not directly related to the function we are testing, but are called by React lifecycles.
